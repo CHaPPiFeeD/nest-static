@@ -1,6 +1,7 @@
 import { HttpException, Injectable } from '@nestjs/common';
-import { readFileSync, writeFileSync } from 'fs';
+import { readFileSync, writeFileSync, readdirSync } from 'fs';
 import * as path from 'path';
+
 @Injectable()
 export class AppService {
   async openChank(key: string): Promise<string> {
@@ -24,5 +25,11 @@ export class AppService {
     writeFileSync(openedChanksPath, JSON.stringify(openedChanks));
 
     return 'saved';
+  }
+
+  async getChanks(): Promise<string[]> {
+    const assetDirPath = path.resolve('src/assets/10x10');
+
+    return readdirSync(assetDirPath);
   }
 }
