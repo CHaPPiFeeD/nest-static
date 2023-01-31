@@ -29,7 +29,7 @@ fs.readdir(assetDirPath, (err, files) => {
   const keys = [];
 
   for (let i = 0; i < files.length; i++) {
-    const id = i + 1;
+    const id = files[i];
     const key = +generateKey(10);
     const userKey = key.toString(16);
 

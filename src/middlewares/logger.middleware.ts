@@ -9,8 +9,9 @@ export class LoggerMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
     const openedChanksPath = path.resolve('src/json/opened-chanks.json');
     const openedChanks = JSON.parse(readFileSync(openedChanksPath, 'utf8'));
-    const chankId = +req.url.split('/').pop().substring(11, 14);
-    const isOpened = openedChanks.filter((openedId) => openedId === chankId);
+    // const chankId = +req.url.split('/').pop().substring(11, 14);
+    const fileName = req.url.split('/').pop();
+    const isOpened = openedChanks.filter((openedId) => openedId === fileName);
 
     if (isOpened.length) {
       next();

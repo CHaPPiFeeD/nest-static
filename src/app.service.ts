@@ -5,6 +5,7 @@ import * as path from 'path';
 @Injectable()
 export class AppService {
   async openChank(key: string): Promise<string> {
+    console.log(key, 'key');
     const keysPath = path.resolve('src/json/keys.json');
     const keys = JSON.parse(readFileSync(keysPath, 'utf8'));
 
