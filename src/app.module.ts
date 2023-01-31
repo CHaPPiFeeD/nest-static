@@ -3,7 +3,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { LoggerMiddleware } from './middlewares/logger.middleware';
+import { ChankMiddleware } from './middlewares/chank.middleware';
 
 @Module({
   imports: [
@@ -18,7 +18,7 @@ import { LoggerMiddleware } from './middlewares/logger.middleware';
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(LoggerMiddleware)
+      .apply(ChankMiddleware)
       .forRoutes({ path: '/assets*', method: RequestMethod.GET });
   }
 }

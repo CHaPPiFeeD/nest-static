@@ -5,13 +5,17 @@ import { readFileSync } from 'fs';
 import { HttpException } from '@nestjs/common/exceptions';
 
 @Injectable()
-export class LoggerMiddleware implements NestMiddleware {
+export class ChankMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
     const openedChanksPath = path.resolve('src/json/opened-chanks.json');
     const openedChanks = JSON.parse(readFileSync(openedChanksPath, 'utf8'));
-    // const chankId = +req.url.split('/').pop().substring(11, 14);
-    const fileName = req.url.split('/').pop();
-    const isOpened = openedChanks.filter((openedId) => openedId === fileName);
+    const split = req.url.split('/').pop().split(/[-.]/);
+    const row = split[1];
+    const column = split[3];
+
+    const isOpened = openedChanks.filter(
+      (openedChank) => openedChank.row === row && openedChank.column === column,
+    );
 
     if (isOpened.length) {
       next();

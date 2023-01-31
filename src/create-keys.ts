@@ -9,16 +9,7 @@ const generateKey = (length) => {
     key += Math.ceil(Math.random() * 9);
   }
 
-  return key;
-};
-
-const zeroPad = (num, count) => {
-  let numZeropad = num + '';
-
-  while (numZeropad.length < count) {
-    numZeropad = '0' + numZeropad;
-  }
-  return numZeropad;
+  return +key;
 };
 
 const assetDirPath = path.resolve('src/assets/3x3');
@@ -29,11 +20,12 @@ fs.readdir(assetDirPath, (err, files) => {
   const keys = [];
 
   for (let i = 0; i < files.length; i++) {
-    const id = files[i];
-    const key = +generateKey(10);
-    const userKey = key.toString(16);
+    const split = files[i].split(/[-.]/);
+    const row = split[1];
+    const column = split[3];
+    const userKey = generateKey(10).toString(16);
 
-    keys.push({ id, userKey });
+    keys.push({ row, column, userKey });
   }
 
   fs.writeFileSync(keysPath, JSON.stringify(keys));

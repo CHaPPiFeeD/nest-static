@@ -12,17 +12,17 @@ export class AppService {
     const openedChanksPath = path.resolve('src/json/opened-chanks.json');
     const openedChanks = JSON.parse(readFileSync(openedChanksPath, 'utf8'));
 
-    const sameKeys = keys.filter(({ userKey }) => userKey === key);
-    if (!sameKeys.length) throw new HttpException('Invalid key', 400);
+    const sameKey = keys.filter(({ userKey }) => userKey === key).shift();
+    if (!sameKey) throw new HttpException('Invalid key', 400);
 
-    const { id } = sameKeys.shift();
+    const { row, column } = sameKey;
 
-    openedChanks.forEach((openedId) => {
-      if (openedId === id)
+    openedChanks.forEach((openedChank) => {
+      if (openedChank.row === row && openedChank.column == column)
         throw new HttpException('The key is already in use', 400);
     });
 
-    openedChanks.push(id);
+    openedChanks.push({ row, column });
     writeFileSync(openedChanksPath, JSON.stringify(openedChanks));
 
     return 'saved';
