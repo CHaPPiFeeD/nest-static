@@ -6,7 +6,7 @@ const generateKey = (length) => {
   let key = '';
 
   for (let i = 0; i < length; i++) {
-    key += Math.floor(Math.random() * 9);
+    key += Math.ceil(Math.random() * 9);
   }
 
   return key;
@@ -21,7 +21,7 @@ const zeroPad = (num, count) => {
   return numZeropad;
 };
 
-const assetDirPath = path.resolve('src/assets/10x10');
+const assetDirPath = path.resolve('src/assets/3x3');
 const keysPath = path.resolve('src/json/keys.json');
 const openedChanksPath = path.resolve('src/json/opened-chanks.json');
 
@@ -30,10 +30,10 @@ fs.readdir(assetDirPath, (err, files) => {
 
   for (let i = 0; i < files.length; i++) {
     const id = i + 1;
-    const key = generateKey(7);
-    const paddingId = zeroPad(id, 3);
+    const key = +generateKey(10);
+    const userKey = key.toString(16);
 
-    keys.push({ id, key, userKey: paddingId + key });
+    keys.push({ id, userKey });
   }
 
   fs.writeFileSync(keysPath, JSON.stringify(keys));

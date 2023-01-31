@@ -11,10 +11,10 @@ export class AppService {
     const openedChanksPath = path.resolve('src/json/opened-chanks.json');
     const openedChanks = JSON.parse(readFileSync(openedChanksPath, 'utf8'));
 
-    const id = +key.slice(0, 3);
+    const sameKeys = keys.filter(({ userKey }) => userKey === key);
+    if (!sameKeys.length) throw new HttpException('Invalid key', 400);
 
-    const sameKeys = keys.filter(({ userKey }) => userKey === key).length;
-    if (!sameKeys) throw new HttpException('Invalid key', 400);
+    const { id } = sameKeys.shift();
 
     openedChanks.forEach((openedId) => {
       if (openedId === id)
@@ -28,7 +28,7 @@ export class AppService {
   }
 
   async getChanks(): Promise<string[]> {
-    const assetDirPath = path.resolve('src/assets/10x10');
+    const assetDirPath = path.resolve('src/assets/3x3');
 
     return readdirSync(assetDirPath);
   }
