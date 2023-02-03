@@ -33,4 +33,12 @@ export class AppService {
 
     return readdirSync(assetDirPath);
   }
+
+  async getOpenedChanksKeys(): Promise<string[]> {
+    const keysPath = path.resolve('src/json/opened-chanks.json');
+    const keys = JSON.parse(readFileSync(keysPath, 'utf8'));
+
+    return keys;
+    
+  }
 }

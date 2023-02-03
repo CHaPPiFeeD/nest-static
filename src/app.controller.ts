@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService) { }
 
   @Post('keys')
   async addKey(@Body() body: IAddKeyAppInterface): Promise<string> {
@@ -14,5 +14,10 @@ export class AppController {
   @Get('chanks')
   async getChanks(): Promise<any> {
     return await this.appService.getChanks();
+  }
+
+  @Get('test')
+  async getOpenedChanksKeys() {
+    return await this.appService.getOpenedChanksKeys();
   }
 }
