@@ -29,7 +29,7 @@ export class AppService {
   }
 
   async getChanks(): Promise<string[]> {
-    const assetDirPath = path.resolve('src/assets/3x3');
+    const assetDirPath = path.resolve('src/assets/9x9');
 
     return readdirSync(assetDirPath);
   }
@@ -39,6 +39,5 @@ export class AppService {
     const keys = JSON.parse(readFileSync(keysPath, 'utf8'));
 
     return keys;
-    
   }
 }

@@ -12,7 +12,7 @@ const generateKey = (length) => {
   return +key;
 };
 
-const assetDirPath = path.resolve('src/assets/3x3');
+const assetDirPath = path.resolve('src/assets/9x9');
 const keysPath = path.resolve('src/json/keys.json');
 const openedChanksPath = path.resolve('src/json/opened-chanks.json');
 
