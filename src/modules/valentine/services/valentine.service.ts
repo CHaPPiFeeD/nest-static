@@ -4,13 +4,17 @@ import {
   IAddKeyValentineInterface,
   IOpenedChankRestonseInterface,
 } from '../interfaces/valentine.interface';
+import { OpenedChankObj } from '../types';
 
 @Injectable()
 export class ValentineService {
   @Inject('PuzzleJson')
   private puzzleJson: IPuzzleJson;
 
-  async openChank({ key, puzzle }: IAddKeyValentineInterface): Promise<string> {
+  async openChank({
+    key,
+    puzzle,
+  }: IAddKeyValentineInterface): Promise<OpenedChankObj> {
     const keys = await this.puzzleJson.readKeys(puzzle);
     const openedChanks = await this.puzzleJson.readOpenedChanks(puzzle);
 
@@ -27,7 +31,7 @@ export class ValentineService {
     openedChanks.push({ row, column });
     this.puzzleJson.writeOpenedChanks(puzzle, openedChanks);
 
-    return 'saved';
+    return { row, column };
   }
 
   async getOpenedChanks(
